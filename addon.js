@@ -39,10 +39,10 @@ builder.defineStreamHandler(async function (args) {
       const streams = response.data.data.streams.map(stream => ({ name: `CineTorrent\n${stream.quality}`, title: `${response.data.data.title}\n${stream.language.toUpperCase()}`, infoHash: parseTorrent(stream.url).infoHash }))
 
       if (streams.length > 0) {
-        redis.set(`stream-${args.id}`, JSON.stringify(streams), 'EX', 60 * 60 * 24)
+        redis.set(`stream-${args.id}`, JSON.stringify(streams), 'EX', 60 * 60 * 360)
       }
 
-      redis.set(`stream-${args.id}`, JSON.stringify(streams), 'EX', 60 * 60 * 18)
+      redis.set(`stream-${args.id}`, JSON.stringify(streams), 'EX', 60 * 60 * 360)
       
       return Promise.resolve({ streams })
     } catch (error) {
@@ -65,10 +65,10 @@ builder.defineStreamHandler(async function (args) {
       const streams = response.data.data.streams.map(stream => ({ name: `CineTorrent\n${stream.quality}`, title: `${response.data.data.title}\n${stream.language.toUpperCase()}`, infoHash: parseTorrent(stream.url).infoHash }))
 
       if (streams.length > 0) {
-        redis.set(`stream-${args.id}`, JSON.stringify(streams), 'EX', 60 * 60 * 24)
+        redis.set(`stream-${args.id}`, JSON.stringify(streams), 'EX', 60 * 60 * 360)
       }
 
-      redis.set(`stream-${args.id}`, JSON.stringify(streams), 'EX', 60 * 60 * 18)
+      redis.set(`stream-${args.id}`, JSON.stringify(streams), 'EX', 60 * 60 * 360)
 
       return Promise.resolve({ streams })
     } catch (error) {
