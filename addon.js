@@ -20,6 +20,10 @@ builder.defineStreamHandler(async function (args) {
     try {
       const response = await axios.get(`${process.env.SERVERLESS_FUNCTION_BASE_URL}/api/stremioAddonStreams?imdb_id=${args.id}`)
 
+      if (response.status === 404) {
+        return Promise.resolve({ streams: [] })
+      }
+
       const streams = response.data.data.streams.map(stream => ({ name: `CineTorrent\n${stream.quality}`, title: `${response.data.data.title}\n${stream.language.toUpperCase()}`, infoHash: parseTorrent(stream.uri).infoHash }))
 
       return Promise.resolve({ streams })
@@ -33,6 +37,10 @@ builder.defineStreamHandler(async function (args) {
     try {
       const [id, season_number, episode_number] = args.id.split(':')
       const response = await axios.get(`${process.env.SERVERLESS_FUNCTION_BASE_URL}/api/stremioAddonStreams?imdb_id=${id}&season_number=${season_number}&episode_number=${episode_number}`)
+
+      if (response.status === 404) {
+        return Promise.resolve({ streams: [] })
+      }
 
       const streams = response.data.data.streams.map(stream => ({ name: `CineTorrent\n${stream.quality}`, title: `${response.data.data.title}\n${stream.language.toUpperCase()}`, infoHash: parseTorrent(stream.uri).infoHash }))
 
