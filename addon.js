@@ -7,7 +7,7 @@ const builder = new addonBuilder({
   id: 'org.mayconbenito.cinetorrent',
   version: '1.0.0',
   name: 'CineTorrent',
-  description: 'Find Multi Language Torrent Streams for Movies and TV Shows supports (PT, EN and ES)',
+  description: 'Find Multi Language Torrent Streams for Movies and TV Shows supports (PT and EN)',
   catalogs: [],
   resources: ['stream'],
   types: ['movie', 'series'],
@@ -26,10 +26,10 @@ builder.defineStreamHandler(async function (args) {
 
       const streams = response.data.data.streams.map(stream => ({ name: `CineTorrent\n${stream.quality}`, title: `${response.data.data.title}\n${stream.language.map(language => language.toUpperCase())}`, infoHash: parseTorrent(stream.uri).infoHash }))
 
-      return Promise.resolve({ streams })
+      return Promise.resolve({ streams, "cacheMaxAge": 7200, "staleRevalidate": 7200, "staleError": 604800 })
     } catch (error) {
       console.log(error)
-      return Promise.resolve({ streams: [] })
+      return Promise.resolve({ streams: [], "cacheMaxAge": 7200, "staleRevalidate": 7200, "staleError": 604800 })
     }
   }
 
@@ -44,10 +44,10 @@ builder.defineStreamHandler(async function (args) {
 
       const streams = response.data.data.streams.map(stream => ({ name: `CineTorrent\n${stream.quality}`, title: `${response.data.data.title}\n${stream.language.map(language => language.toUpperCase())}`, infoHash: parseTorrent(stream.uri).infoHash }))
 
-      return Promise.resolve({ streams })
+      return Promise.resolve({ streams, "cacheMaxAge": 7200, "staleRevalidate": 7200, "staleError": 604800 })
     } catch (error) {
       console.log(error)
-      return Promise.resolve({ streams: [] })
+      return Promise.resolve({ streams, "cacheMaxAge": 7200, "staleRevalidate": 7200, "staleError": 604800 })
     }
   }
 })
