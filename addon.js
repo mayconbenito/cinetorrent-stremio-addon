@@ -24,7 +24,7 @@ builder.defineStreamHandler(async function (args) {
         return Promise.resolve({ streams: [] })
       }
 
-      const streams = response.data.data.streams.map(stream => ({ name: `CineTorrent\n${stream.quality}`, title: `${response.data.data.title}\n${stream.language.toUpperCase()}`, infoHash: parseTorrent(stream.uri).infoHash }))
+      const streams = response.data.data.streams.map(stream => ({ name: `CineTorrent\n${stream.quality}`, title: `${response.data.data.title}\n${stream.language.map(language => language.toUpperCase())}`, infoHash: parseTorrent(stream.uri).infoHash }))
 
       return Promise.resolve({ streams })
     } catch (error) {
@@ -42,7 +42,7 @@ builder.defineStreamHandler(async function (args) {
         return Promise.resolve({ streams: [] })
       }
 
-      const streams = response.data.data.streams.map(stream => ({ name: `CineTorrent\n${stream.quality}`, title: `${response.data.data.title}\n${stream.language.toUpperCase()}`, infoHash: parseTorrent(stream.uri).infoHash }))
+      const streams = response.data.data.streams.map(stream => ({ name: `CineTorrent\n${stream.quality}`, title: `${response.data.data.title}\n${stream.language.map(language => language.toUpperCase())}`, infoHash: parseTorrent(stream.uri).infoHash }))
 
       return Promise.resolve({ streams })
     } catch (error) {
