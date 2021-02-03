@@ -7,7 +7,7 @@ const builder = new addonBuilder({
   id: 'org.mayconbenito.cinetorrent',
   version: '1.0.0',
   name: 'CineTorrent',
-  description: 'Find Multi Language Torrent Streams for Movies and TV Shows supports (PT and EN)',
+  description: 'Find Multi Language Torrent Streams for Movies and TV Shows supports (Brazilian Portuguese and English) - (TV Shows Support Comming Soon)',
   catalogs: [],
   resources: ['stream'],
   types: ['movie', 'series'],
