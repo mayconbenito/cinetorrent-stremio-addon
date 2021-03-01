@@ -58,23 +58,28 @@ builder.defineStreamHandler(async function (args) {
 
 builder.defineCatalogHandler(async function(args) {
   if (args.type === 'movie' && args.id === 'top_movies') {
-    const response = await axios.get(`${process.env.SERVERLESS_FUNCTION_BASE_URL}/api/movies`)
+    try {
+      const response = await axios.get(`${process.env.SERVERLESS_FUNCTION_BASE_URL}/api/movies`)
 
-    return Promise.resolve({ metas: response.data.map(meta => {
-        return {
-          id: meta.imdb_id,
-          name: meta.original_name,
-          releaseInfo: meta.release_date,
-          poster: meta.poster,
-          posterShape: 'regular',
-          banner: meta.wallpaper,
-          type: 'movie'
-        }
-      }),
-      "cacheMaxAge": 7200,
-      "staleRevalidate": 7200,
-      "staleError": 604800 
-    })
+      return Promise.resolve({ metas: response.data.map(meta => {
+          return {
+            id: meta.imdb_id,
+            name: meta.original_name,
+            releaseInfo: meta.release_date,
+            poster: meta.poster,
+            posterShape: 'regular',
+            banner: meta.wallpaper,
+            type: 'movie'
+          }
+        }),
+        "cacheMaxAge": 7200,
+        "staleRevalidate": 7200,
+        "staleError": 604800 
+      })
+    } catch (error) {
+      console.log(error)
+      return Promise.resolve({ metas: [] })
+    }
   } else {
     return Promise.resolve({ metas: [] })
   }
