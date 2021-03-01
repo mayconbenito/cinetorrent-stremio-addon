@@ -16,6 +16,7 @@ const builder = new addonBuilder({
   resources: ['stream'],
   types: ['movie', 'series'],
   idPrefixes: ['tt'],
+  logo: "https://i.ibb.co/RDtR0q0/Logo.jpg",
   contactEmail: 'mayconbenito21@gmail.com'
 })
 
