@@ -8,7 +8,11 @@ const builder = new addonBuilder({
   version: '1.0.0',
   name: 'CineTorrent',
   description: 'Find Multi Language Torrent Streams for Movies and TV Shows supports (Brazilian Portuguese and English) - (TV Shows Support Comming Soon)',
-  catalogs: [],
+  catalogs: [{
+    type: 'movie',
+    id: 'top_movies',
+    name: 'Top'
+  }],
   resources: ['stream'],
   types: ['movie', 'series'],
   idPrefixes: ['tt'],
@@ -49,6 +53,30 @@ builder.defineStreamHandler(async function (args) {
       console.log(error)
       return Promise.resolve({ streams, "cacheMaxAge": 7200, "staleRevalidate": 7200, "staleError": 604800 })
     }
+  }
+})
+
+builder.defineCatalogHandler(async function(args) {
+  if (args.type === 'movie' && args.id === 'top_movies') {
+    const response = await axios.get(`${process.env.SERVERLESS_FUNCTION_BASE_URL}/api/movies`)
+
+    return Promise.resolve({ metas: response.data.map(meta => {
+        return {
+          id: meta.imdb_id,
+          name: meta.original_name,
+          releaseInfo: meta.release_date,
+          poster: meta.poster,
+          posterShape: 'regular',
+          banner: meta.wallpaper,
+          type: 'movie'
+        }
+      }),
+      "cacheMaxAge": 7200,
+      "staleRevalidate": 7200,
+      "staleError": 604800 
+    })
+  } else {
+    return Promise.resolve({ metas: [] })
   }
 })
 
