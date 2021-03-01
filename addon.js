@@ -11,7 +11,7 @@ const builder = new addonBuilder({
   catalogs: [{
     type: 'movie',
     id: 'top_movies',
-    name: 'Top'
+    name: 'CineTorrent - Top'
   }],
   resources: ['stream'],
   types: ['movie', 'series'],
