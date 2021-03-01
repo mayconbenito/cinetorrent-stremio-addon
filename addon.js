@@ -5,7 +5,7 @@ const axios = require('axios')
 
 const builder = new addonBuilder({
   id: 'org.mayconbenito.cinetorrent',
-  version: '1.0.0',
+  version: '1.0.1',
   name: 'CineTorrent',
   description: 'Find Multi Language Torrent Streams for Movies and TV Shows supports (Brazilian Portuguese and English) - (TV Shows Support Comming Soon)',
   catalogs: [{
