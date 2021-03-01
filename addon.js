@@ -65,7 +65,7 @@ builder.defineCatalogHandler(async function(args) {
       return Promise.resolve({ metas: response.data.map(meta => {
           return {
             id: meta.imdb_id,
-            name: meta.original_name,
+            name: meta.original_title,
             releaseInfo: meta.release_date,
             poster: meta.poster,
             posterShape: 'regular',
